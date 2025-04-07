@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, status, Body
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import NoResultFound
+from fastapi.middleware.cors import CORSMiddleware
 from . import models, schemas, database, auth
 import os
 
@@ -9,6 +10,14 @@ import os
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
