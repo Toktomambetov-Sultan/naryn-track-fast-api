@@ -1,16 +1,18 @@
 from pydantic import BaseModel, Field
 from typing import Optional
 
+
 class UserCreate(BaseModel):
     username: str
     car_number: Optional[str] = None
     password: str
-    is_admin: Optional[bool] = False
+
 
 class UserUpdate(BaseModel):
     username: Optional[str] = None
     car_number: Optional[str] = None
     is_admin: Optional[bool] = None
+
 
 class UserResponse(BaseModel):
     id: int
@@ -20,11 +22,13 @@ class UserResponse(BaseModel):
     is_admin: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
 
 class LoginData(BaseModel):
     username: str
     password: str
+
 
 class ChangePasswordData(BaseModel):
     old_password: str
