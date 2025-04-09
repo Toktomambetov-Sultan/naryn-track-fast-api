@@ -1,5 +1,4 @@
 import json
-import numpy as np
 
 from fastapi import Depends
 import socketio
